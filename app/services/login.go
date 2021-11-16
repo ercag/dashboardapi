@@ -20,10 +20,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	result := mongodb.Login(user)
 
-	if result == "Success" {
-		//w.Write()
+	json.NewEncoder(w).Encode(result)
+}
 
-	} else {
-		json.Marshal("Login Fail")
-	}
+func ValidateToken(token string) (valid bool) {
+	return mongodb.ValidateToken(token)
 }
