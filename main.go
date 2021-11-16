@@ -16,6 +16,7 @@ func main() {
 	//Path to route
 	router.HandleFunc("/", services.Home)
 	router.HandleFunc("/login", services.Login)
+	router.HandleFunc("/user", services.CreateUser).Methods("POST")
 
 	port := os.Getenv("PORT")
 
