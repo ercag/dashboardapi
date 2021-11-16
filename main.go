@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"dashboardapi/app/services"
 
@@ -16,5 +17,13 @@ func main() {
 	router.HandleFunc("/", services.Home)
 	router.HandleFunc("/login", services.Login)
 
-	log.Fatal(http.ListenAndServe(":5000", router))
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "5000"
+	}
+
+	log.Println("** Service Started on Port " + port + " **")
+
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }

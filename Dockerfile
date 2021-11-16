@@ -1,9 +1,16 @@
 FROM golang:1.17
 
-WORKDIR /go/src/app
-COPY . .
+ENV APP_NAME myproject
+ENV PORT 5000
 
-RUN go get -d -v ./...
-RUN go install -v ./...
+ADD . /go/src/${APP_NAME}
 
-CMD ["app"]
+COPY . /go/src/${APP_NAME}
+WORKDIR /go/src/${APP_NAME}
+
+RUN go get ./
+RUN go build -o ${APP_NAME}
+
+CMD ./${APP_NAME}
+
+EXPOSE ${PORT}
